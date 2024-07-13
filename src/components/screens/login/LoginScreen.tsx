@@ -9,6 +9,7 @@ import logo_url from '../../../assets/img/logo.png'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
+import { makeHash } from '../../../helpers/makeHash';
 
 import { useAuth } from '../../context/AuthContext';
 
@@ -19,7 +20,7 @@ type Props = {
 };
 
 type FormData = {
-    email: string;
+    dni: string;
     password: string;
 };
 
@@ -29,7 +30,6 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
     const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
 
     const onSubmit = (data: FormData) => {
-        console.log(data);
         logIn(data);
     };
 
@@ -64,16 +64,17 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
                                     onBlur={onBlur}
                                     onChangeText={onChange}
                                     value={value}
-                                    placeholder='E-Mail'
+                                    placeholder='DNI'
                                 />
                             )}
-                            name="email"
+                            name="dni"
                         />
-                        {errors.email && <Text className='text-red-500 ml-4'>{errors.email.message}</Text>}
+                        {errors.dni && <Text className='text-red-500 ml-4'>{errors.dni.message}</Text>}
 
                         <Controller
                             control={control}
                             // rules={{ required: 'Contraseña es requerida' }}
+                            defaultValue='sonvolt'
                             render={({ field: { onChange, onBlur, value } }) => (
                                 <TextInput
                                     secureTextEntry

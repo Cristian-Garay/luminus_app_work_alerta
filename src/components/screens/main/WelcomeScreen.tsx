@@ -19,7 +19,7 @@ export const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
     const loggingOut = () => {
         console.log(loggedUser);
 
-        // logOut();
+        logOut();
     }
 
     console.log("LOGUEADO", loggedUser.nombre);

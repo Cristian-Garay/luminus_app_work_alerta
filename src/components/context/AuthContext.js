@@ -12,9 +12,7 @@ export const AuthProvider = ({ children }) => {
         const loadAuthState = async () => {
             try {
                 const user = await AsyncStorage.getItem('user');
-                console.log("LOGGED", user);
                 if (user !== null) {
-                    console.log("SETEANDO", JSON.stringify(user));
                     setLoggedUser(JSON.parse(user));
                 }
             } catch (error) {
@@ -22,7 +20,6 @@ export const AuthProvider = ({ children }) => {
             }
         };
 
-        console.log("CREAMOS FUNCION");
         loadAuthState();
     }, []);
 
