@@ -41,3 +41,33 @@ export const logout = async () => {
         throw error; // Maneja errores según sea necesario
     }
 };
+
+export const NoticiasGet = async (data) => {
+    try {
+        const hashid = makeHash("");
+
+        const response = await axios.get(`${base_url}NoticiasGet?hashid=${hashid}&qty=2&start=0`);
+
+        // console.log(response.data);
+
+        return response.data;
+    } catch (error) {
+        console.error('Error NoticiasGet out:', error);
+        throw error; // Maneja errores según sea necesario
+    }
+};
+
+export const NoticiaGet = async (data) => {
+    try {
+        const hashid = makeHash("");
+
+        const response = await axios.get(`${base_url}NoticiaGet?hashid=${hashid}&id=${data.id}`);
+
+        console.log(response.data);
+
+        return response.data;
+    } catch (error) {
+        console.error('Error NoticiasGet out:', error);
+        throw error; // Maneja errores según sea necesario
+    }
+};

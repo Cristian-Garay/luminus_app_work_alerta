@@ -41,7 +41,7 @@ const CustomDrawerContent = ({ navigation }) => {
                         name="gear"
                         size={30}
                     ></Icon>
-                    <Text className='text-white text-xl font-bold text-center ml-2'>Opciones</Text>
+                    <Text className='text-white text-xl font-bold text-center ml-2'>Menú de Opciones</Text>
                 </View>
 
                 <View className='flex mt-16 ml-7'>
@@ -60,8 +60,8 @@ const CustomDrawerContent = ({ navigation }) => {
                 <View className='absolute bottom-44 justify-center w-[100%] items-center flex ml-1 flex-row'>
                     <Icon
                         color={"white"}
-                        name="right-from-bracket"
-                        size={30}
+                        name="power-off"
+                        size={16}
                     ></Icon>
                     <Text className='text-white text-xl font-bold text-center ml-2' onPress={() => logOut()}>Cerrar sesión</Text>
                 </View>
