@@ -3,9 +3,9 @@ import { SuggestionScreen } from "../components/screens/main/SuggestionScreen";
 import { NewsScreen } from "../components/screens/main/NewsScreen";
 
 export const Screens = [
-    { name: 'Welcome', component: WelcomeScreen, label: 'Welcome' },
-    { name: 'Suggestion', component: SuggestionScreen, label: 'Suggestion' },
-    { name: 'News', component: NewsScreen, label: 'News' }
+    { name: 'Welcome', component: WelcomeScreen, label: 'Inicio' },
+    { name: 'Suggestion', component: SuggestionScreen, label: 'Sugerencia' },
+    { name: 'News', component: NewsScreen, label: 'Novedades' },
 ];
 
 

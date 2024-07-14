@@ -21,27 +21,49 @@ import { Colors, Screens } from '../../helpers/constants';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { styled } from 'nativewind';
+import { useAuth } from '../context/AuthContext';
 
 const Drawer = createDrawerNavigator();
 const GradientBackground = styled(LinearGradient);
 
 const CustomDrawerContent = ({ navigation }) => {
+    const { logOut } = useAuth();
+
     return (
         <View className='flex flex-1'>
             <GradientBackground
                 colors={[Colors.primary, Colors.secondary]}
                 className='flex flex-1'
             >
-                <View className='flex-1 justify-center mt-10'>
+                <View className='flex flex-row mt-10 justify-center'>
+                    <Icon
+                        color={"white"}
+                        name="gear"
+                        size={30}
+                    ></Icon>
+                    <Text className='text-white text-xl font-bold text-center ml-2'>Opciones</Text>
+                </View>
+
+                <View className='flex mt-16 ml-7'>
                     {Screens.map((screen, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            onPress={() => navigation.navigate(screen.name)}
-                            className='mb-4'
-                        >
-                            <Text className='text-white text-lg'>{screen.label}</Text>
-                        </TouchableOpacity>
+                        <View key={index} >
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate(screen.name)}
+                            >
+                                <Text className='text-white text-lg'>{screen.label}</Text>
+                            </TouchableOpacity>
+                            <View className='h-[1px] w-[80%] bg-white mb-4 mt-1' />
+                        </View>
                     ))}
+                </View>
+
+                <View className='absolute bottom-44 justify-center w-[100%] items-center flex ml-1 flex-row'>
+                    <Icon
+                        color={"white"}
+                        name="right-from-bracket"
+                        size={30}
+                    ></Icon>
+                    <Text className='text-white text-xl font-bold text-center ml-2' onPress={() => logOut()}>Cerrar sesión</Text>
                 </View>
 
                 <View className='absolute bottom-10 justify-center w-[100%] items-center'>
@@ -59,31 +81,30 @@ const CustomWelcomeHeader = () => (
 );
 
 const CustomHeader = ({ screen, navigation }) => {
-    console.log(screen)
-
     return (
-        <View className='flex-grow flex-row bg-slate-400 justify-center items-center'>
-            <View className='w-[20%] bg-slate-500'>
-                <Icon.Button
-                    name="facebook"
-                    backgroundColor="#3b5998"
-                    onPress={() => navigation.navigate("Welcome")}
+        <View className={`flex-grow flex-row justify-center items-center`}>
+            <View className={`w-[20%] bg-[${Colors.primary}] h-10 justify-center pl-5`} >
+                <Icon
+                    color={"orange"}
+                    // backgroundColor={Colors.primary}
+                    name="arrow-left"
+                    size={30}
+                    onPress={() => navigation.goBack()}
+                // onPress={() => navigation.navigate("Welcome")}
                 >
-                </Icon.Button>
+                </Icon>
             </View>
-            <View className='w-[60%] bg-slate-500 items-center'>
-                <Text>{screen.label}</Text>
+            <View className={`w-[60%] bg-[#00ABE0] items-center`}>
+                <Text className='text-lg'>{screen.label}</Text>
             </View>
-            <View className='w-[20%] bg-slate-900'>
-
-            </View>
+            <View className={`w-[20%] bg-[${Colors.primary}] h-10`} />
         </View>
     )
 }
 
 export const MainNavigation = () => {
     return (
-        <Drawer.Navigator initialRouteName='Suggestion' drawerContent={(props) => <CustomDrawerContent {...props} />}>
+        <Drawer.Navigator initialRouteName='Welcome' drawerContent={(props) => <CustomDrawerContent {...props} />}>
 
             {Screens.map((screen, index) => (
                 <Drawer.Screen
