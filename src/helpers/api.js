@@ -45,10 +45,7 @@ export const logout = async () => {
 export const NoticiasGet = async (data) => {
     try {
         const hashid = makeHash("");
-
         const response = await axios.get(`${base_url}NoticiasGet?hashid=${hashid}&qty=2&start=0`);
-
-        // console.log(response.data);
 
         return response.data;
     } catch (error) {
@@ -60,10 +57,21 @@ export const NoticiasGet = async (data) => {
 export const NoticiaGet = async (data) => {
     try {
         const hashid = makeHash("");
-
         const response = await axios.get(`${base_url}NoticiaGet?hashid=${hashid}&id=${data.id}`);
 
-        console.log(response.data);
+        console.log(`${base_url}NoticiaGet?hashid=${hashid}&id=${data.id}`);
+        // console.log(response.data);
+
+        return response.data;
+    } catch (error) {
+        console.error('Error NoticiasGet out:', error);
+        throw error; // Maneja errores según sea necesario
+    }
+};
+
+export const ImagenGet = async (id) => {
+    try {
+        const response = await axios.get(`${base_url}Imagen?id=${id}`);
 
         return response.data;
     } catch (error) {

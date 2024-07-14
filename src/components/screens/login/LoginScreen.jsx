@@ -122,7 +122,7 @@ export const LoginScreen = ({ navigation }) => {
                 </View>
 
                 <View className='h-7 flex-row'>
-                    <View className={`flex w-[76%] bg-[${Colors.primary}]`}>
+                    <View className={`flex w-[76%] bg-[${Colors.primary}]`} style={{backgroundColor: Colors.primary}}>
                     </View>
                     <View className={`flex w-[7%] bg-[${Colors.blue}]`}>
                     </View>
@@ -136,42 +136,3 @@ export const LoginScreen = ({ navigation }) => {
 
     )
 }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//     },
-//     scrollContainer: {
-//         flexGrow: 1,
-//     },
-//     content: {
-//         flex: 1,
-//         backgroundColor: 'white',
-//         paddingBottom: 50, // Add padding to ensure footer is not covered
-//     },
-//     input: {
-//         height: 40,
-//         borderColor: 'gray',
-//         borderWidth: 1,
-//         margin: 20,
-//     },
-//     footer: {
-//         height: 50,
-//         flexDirection: 'row',
-//     },
-//     bar: {
-//         flex: 1,
-//     },
-//     blue: {
-//         backgroundColor: '#00ABE0',
-//     },
-//     darkBlue: {
-//         backgroundColor: '#3C4C6E',
-//     },
-//     purple: {
-//         backgroundColor: '#9A76A6',
-//     },
-//     pink: {
-//         backgroundColor: '#EB557A',
-//     },
-// });

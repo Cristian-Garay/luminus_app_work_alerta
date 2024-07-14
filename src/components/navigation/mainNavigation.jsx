@@ -11,6 +11,8 @@ import { WelcomeScreen } from '../screens/main/WelcomeScreen';
 import { SuggestionScreen } from '../screens/main/SuggestionScreen';
 import { NewsScreen } from '../screens/main/NewsScreen';
 
+import { NewsDetailScreen } from '../screens/main/NewsDetailScreen';
+
 import logo_url from '../../assets/img/logo.png'
 import logo_solo_url from '../../assets/img/logo_solo.png'
 import menu_url from '../../assets/icons/menu.png'
@@ -83,28 +85,21 @@ const CustomWelcomeHeader = () => (
 const CustomHeader = ({ screen, navigation }) => {
     return (
         <View className={`flex-grow flex-row justify-center items-center`}>
-            <View className={`w-[20%] bg-[${Colors.primary}] h-10 justify-center pl-5`} >
-                <Icon
-                    color={"orange"}
-                    // backgroundColor={Colors.primary}
-                    name="arrow-left"
-                    size={30}
-                    onPress={() => navigation.goBack()}
-                // onPress={() => navigation.navigate("Welcome")}
-                >
-                </Icon>
+            <View className={`w-[20%] bg-[${Colors.primary}] h-14 justify-center pl-5`} >
+                <Icon color={"white"} name="arrow-left" size={30} onPress={() => navigation.goBack()} />
             </View>
-            <View className={`w-[60%] bg-[#00ABE0] items-center`}>
-                <Text className='text-lg'>{screen.label}</Text>
+            <View className={`w-[60%] bg-[#00ABE0] items-center flex-row justify-center h-[100%]`}>
+                <Icon color={"white"} name={screen.icon} size={30} />
+                <Text className='text-lg ml-3 text-white bg-bl'>{screen.label}</Text>
             </View>
-            <View className={`w-[20%] bg-[${Colors.primary}] h-10`} />
+            <View className={`w-[20%] bg-[${Colors.primary}] h-14`} />
         </View>
     )
 }
 
 export const MainNavigation = () => {
     return (
-        <Drawer.Navigator initialRouteName='Welcome' drawerContent={(props) => <CustomDrawerContent {...props} />}>
+        <Drawer.Navigator initialRouteName='News' drawerContent={(props) => <CustomDrawerContent {...props} />}>
 
             {Screens.map((screen, index) => (
                 <Drawer.Screen
@@ -122,65 +117,35 @@ export const MainNavigation = () => {
                             )
                         } : {
                             header: () => <CustomHeader navigation={navigation} screen={screen} />,
-                            // headerTitleAlign: "center",
-                            // headerLeft: () => (
-                            //     <TouchableOpacity onPress={() => navigation.goBack()}>
-                            //         <Image source={menu_url} className='w-8 h-8 ml-5' />
-                            //     </TouchableOpacity>
-                            // )
                         }
                     }
                 />
             ))}
 
-            {/* <Drawer.Screen
-                options={({ navigation }) => ({
-                    headerTitle: () => <CustomHeader navigation={navigation} />,
-                    headerTitleAlign: "center",
-                    headerLeft: () => (
-                        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                            <Image source={menu_url} className='w-8 h-8 ml-5' />
-                        </TouchableOpacity>
-                    )
-                })}
-                name="Welcome"
-                component={WelcomeScreen}
-            />
             <Drawer.Screen
-                name="Suggestion"
-                component={SuggestionScreen}
+                key={999}
+                name={"NewDetail"}
+                component={NewsDetailScreen}
+                options={({ navigation }) =>
+                    "screen.name" === 'Welcome' ? {
+                        headerTitle: () => <CustomWelcomeHeader navigation={navigation} screen={screen} />,
+                        headerTitleAlign: "center",
+                        headerLeft: () => (
+                            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                                <Image source={menu_url} className='w-8 h-8 ml-5' />
+                            </TouchableOpacity>
+                        )
+                    } : {
+                        header: () =>
+                            <View className={`flex-grow flex-row justify-center items-center`}>
+                                <View className={`w-full bg-[${Colors.primary}] h-14 justify-center pl-5`} >
+                                    <Icon color={"white"} name="arrow-left" size={30} onPress={() => navigation.navigate("News")} />
+                                </View>
+                            </View>,
+                    }
+                }
             />
-            <Drawer.Screen
-                name="News"
-                component={NewsScreen}
-            /> */}
         </Drawer.Navigator >
     );
 }
 
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    drawerContent: {
-        flex: 1
-    },
-    header: {
-        height: 150,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'black',
-    },
-    headerImage: {
-        width: 120,
-        height: 60,
-    },
-    headerContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
-});
