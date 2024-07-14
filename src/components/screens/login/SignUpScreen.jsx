@@ -5,16 +5,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { LoginStackParamList } from '../../navigation/loginNavigation';
 
-type SignUpScreenNavigationProp = StackNavigationProp<
-    LoginStackParamList,
-    'SignUp'
->;
 
-type Props = {
-    navigation: SignUpScreenNavigationProp;
-};
-
-export const SignUpScreen: React.FC<Props> = ({ navigation }) => {
+export const SignUpScreen = ({ navigation }) => {
     return (
         <View>
             <Text>SignUp Screen</Text>

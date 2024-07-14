@@ -12,17 +12,12 @@ import { useAuth } from '../context/AuthContext';
 export const Navigation = () => {
     const { loggedUser } = useAuth();
 
-    console.log("VALIDANDO", loggedUser);
-
-
     return (
         <NavigationContainer>
             {
                 loggedUser !== null
-                    ?
-                    <MainNavigation />
-                    :
-                    <LoginNavigation />
+                    ? <MainNavigation />
+                    : <LoginNavigation />
             }
         </NavigationContainer>
     );

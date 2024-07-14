@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button, Text, TouchableOpacity, SafeAreaView, Image, StatusBar, KeyboardAvoidingView, Platform, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StatusBar } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LoginStackParamList } from '../../navigation/loginNavigation';
 import { TextInput } from 'react-native-gesture-handler';
@@ -9,29 +9,19 @@ import logo_url from '../../../assets/img/logo.png'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { makeHash } from '../../../helpers/makeHash';
-
 import { useAuth } from '../../context/AuthContext';
+import { Colors } from '../../../helpers/constants';
 
-type LoginScreenNavigationProp = StackNavigationProp<LoginStackParamList, 'Login'>;
 
-type Props = {
-    navigation: LoginScreenNavigationProp;
-};
+export const LoginScreen = ({ navigation }) => {
+    const { logIn, showToast } = useAuth();
 
-type FormData = {
-    dni: string;
-    password: string;
-};
+    const { control, handleSubmit, formState: { errors } } = useForm();
 
-export const LoginScreen: React.FC<Props> = ({ navigation }) => {
-    const { logIn } = useAuth();
-
-    const { control, handleSubmit, formState: { errors } } = useForm<FormData>();
-
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data) => {
         logIn(data);
     };
+
 
     return (
         <View className='flex-1'>
@@ -89,16 +79,41 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
                         />
                         {errors.password && <Text className='text-red-500 ml-4'>{errors.password.message}</Text>}
 
+                        {/* <TouchableOpacity
+                            onPress={() => navigation.goBack()}
+                            // className='flex items-center mb-5 pt-3'
+                            style={{ flex: 1, alignItems: "center", marginBottom: 5, paddingTop: 3 }}
+                        >
+                            <Text
+                                style={{ color: Colors.primary, fontWeight: "bold" }}
+                            // className={`text-[${Colors.primary}] font-bold text-base`}
+                            >Olvidaste tu Contraseña??</Text>
+                        </TouchableOpacity>
 
                         <TouchableOpacity
                             onPress={() => navigation.goBack()}
-                            className='flex items-center mb-5 pt-3'
+                            style={{ marginHorizontal: 70, borderRadius: 50, backgroundColor: Colors.primary, paddingVertical: 10 }}>
+                            <Text
+                                style={{ color: "white", fontWeight: "bold", alignSelf: "center" }}
+                            // className={`text-[${Colors.primary}] font-bold text-base`}
+                            >Olvidaste tu Contraseña??</Text>
+                        </TouchableOpacity> */}
+
+
+                        <TouchableOpacity
+                            style={{ marginHorizontal: 70, borderRadius: 50, alignItems: "center", paddingTop: 40 }}
+                            onPress={() => navigation.goBack()}
                         >
-                            <Text className='text-[#00ABE0] font-bold text-base'>Olvidaste tu Contraseña??</Text>
+                            <Text className={`text-[#00ABE0] font-bold text-base`}>
+                                ¿Olvidaste tu Contraseña?
+                            </Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity className='py-3 bg-[#00ABE0] rounded-3xl mx-10' onPress={handleSubmit(onSubmit)}>
-                            <Text className=' text-lg font-bold text-center text-white'>
+                        <TouchableOpacity
+                            style={{ marginHorizontal: 70, borderRadius: 50, backgroundColor: Colors.primary, paddingVertical: 10 }}
+                            onPress={handleSubmit(onSubmit)}
+                        >
+                            <Text className='text-lg font-bold text-center text-white'>
                                 INGRESAR A MI CUENTA
                             </Text>
                         </TouchableOpacity>
@@ -107,17 +122,17 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
                 </View>
 
                 <View className='h-7 flex-row'>
-                    <View className='flex w-[76%] bg-[#00ABE0]'>
+                    <View className={`flex w-[76%] bg-[${Colors.primary}]`}>
                     </View>
-                    <View className='flex w-[7%] bg-[#3C4C6E]'>
+                    <View className={`flex w-[7%] bg-[${Colors.blue}]`}>
                     </View>
-                    <View className='flex w-[7%] bg-[#9A76A6]'>
+                    <View className={`flex w-[7%] bg-[${Colors.purple}]`}>
                     </View>
-                    <View className='flex w-[10%] bg-[#EB557A]'>
+                    <View className={`flex w-[10%] bg-[${Colors.red}]`}>
                     </View>
                 </View>
             </KeyboardAwareScrollView >
-        </View>
+        </View >
 
     )
 }
