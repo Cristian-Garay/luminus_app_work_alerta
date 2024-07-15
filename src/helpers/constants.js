@@ -4,7 +4,7 @@ import { NewsScreen } from "../components/screens/main/NewsScreen";
 
 export const Screens = [
     { name: 'Welcome', component: WelcomeScreen, label: 'Inicio', icon: "house" },
-    { name: 'News', component: NewsScreen, label: 'Novedades', icon: "bullhorn" },
+    // { name: 'News', component: NewsScreen, label: 'Novedades', icon: "bullhorn" },
     { name: 'Suggestion', component: SuggestionScreen, label: 'Sugerencia', icon: "comment-dots" },
 ];
 

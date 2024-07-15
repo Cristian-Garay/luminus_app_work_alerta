@@ -73,7 +73,7 @@ export const WelcomeScreen = ({ navigation }) => {
                     </View>
 
                     <View className='h-40 flex-row m-3 justify-between mt-7'>
-                        <TouchableOpacity className="flex-1 mx-1 flex-col p-4 justify-center items-center" style={{ backgroundColor: Colors.primary }} onPress={() => navigation.navigate("News")}>
+                        <TouchableOpacity className="flex-1 mx-1 flex-col p-4 justify-center items-center" style={{ backgroundColor: Colors.primary }} onPress={() => navigation.navigate("NewsStack")}>
                             <Icon color={"white"} name="bullhorn" size={60} />
                             <Text className='mt-5 text-white text-xs font-bold text-center'>NOVEDADES</Text>
                         </TouchableOpacity>

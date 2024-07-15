@@ -16,64 +16,45 @@ import { useAuth } from '../../context/AuthContext';
 
 import Animated from 'react-native-reanimated';
 
-import RenderHtml from 'react-native-render-html';
+import RenderHtml, { TNodeChildrenRenderer } from 'react-native-render-html';
 
 
 
 export const NewsDetailScreen = ({ route, ...props }) => {
-    const { setIsLoading } = useAuth();
+    const { setIsLoading, showToast } = useAuth();
 
 
-    const [neww, setNeww] = useState(null)
-    const { newwSumary } = route.params;
+    // const { newwSumary } = route.params;
 
-    // console.log(newwSumary);
+    const [htmlContent, setHtmlContent] = useState('');
 
     useEffect(() => {
-        getNew();
-    }, [])
-
-    // const getNews = async () => {
-    //     const resp = await NoticiasGet();
-
-    //     if (resp.isOk)
-    //         setNews(resp.data)
-
-    //     // console.log("news", resp.data);
-
-    //     // getNew();
-    // }
+        // getNew();
+    }, []);
 
     const getNew = async () => {
         await setIsLoading(true);
 
         const resp = await NoticiaGet({ id: newwSumary.id });
 
-        if (resp.isOk)
-            setNeww(resp.data)
+        if (resp.isOk) {
+            showToast("error", "Ups", "Ocurrió un error obteniendo la noticia, intenta más tarde.")
+            setIsLoading(false);
+            return
+        }
 
-        // await NoticiaGet({ id: newwSumary.id });
+        let html = resp.data.descripcion;
+
+        resp.data.imagenes.forEach((imageId, index) => {
+            const placeholder = `{{imagen${index + 1}}}`; // Start from Imagen0 for imagenes[0]
+            const imgTag = `<img src="https://app.moreno.gob.ar/api/Imagen?id=${imageId}" alt="imagen${index + 1}" />`;
+            html = html.replace(placeholder, imgTag);
+        });
+
+        setHtmlContent(html);
 
         setIsLoading(false);
     }
-
-    const Body = (text) => {
-
-        const source = {
-            html: text
-        };
-
-        return (
-            <View className='p-2'>
-                <RenderHtml
-                    contentWidth={400}
-                    source={source}
-                    {...props}
-                />
-            </View>
-        )
-    }
-
 
     return (
         <SafeAreaView className='flex-1 flex bg-white'>
@@ -82,31 +63,21 @@ export const NewsDetailScreen = ({ route, ...props }) => {
             <ScrollView style={{ backgroundColor: "white", flex: 1 }}>
                 <View className='flex-1'>
                     <Animated.Image
-                        source={{ uri: `https://app.moreno.gob.ar/api/Imagen?id=${newwSumary.imagen1}` }}
-                        // source={{ uri: 'https://picsum.photos/id/39/200' }}
+                        source={{ uri: `https://app.moreno.gob.ar/api/Imagen?id=${"a88680b7-ec1d-46e1-88a9-81cae3ad1abf"}` }}
+                        // source={{ uri: `https://app.moreno.gob.ar/api/Imagen?id=${newwSumary.imagen1}` }}
                         className="w-full h-96 object-cover"
-                        // style={{ width: 300, height: 300 }}
                         sharedTransitionTag="tag"
-                        resizeMode='stretch'
+                        // resizeMode='stretch'
                     />
 
-                    <Text className="text-black text-base font-bold p-2">{newwSumary.titulo}</Text>
+                    {/* <Text className="text-black text-base font-bold p-2">{newwSumary.titulo}</Text>
 
-                    {
-                        neww &&
-                        <>
-                            {Body(neww.descripcion)}
-                            {/* <Text className="text-black text-base font-bold p-2">{neww.descripcion}</Text> */}
-                            {/* <RenderHtml
-                                contentWidth={400}
-                                source={
-                                    source: {
-                                html: nw.resumen
-                                    }
-                                }
-                            /> */}
-                        </>
-                    }
+                    <View className='p-2'>
+                        <RenderHtml
+                            contentWidth={300}
+                            source={{ html: htmlContent }}
+                        />
+                    </View> */}
 
                 </View>
             </ScrollView>

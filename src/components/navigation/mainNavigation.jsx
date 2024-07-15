@@ -3,6 +3,7 @@ import React, { useRef } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { createDrawerNavigator, DrawerNavigationProp } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { useNavigation, ParamListBase } from '@react-navigation/native';
@@ -27,6 +28,8 @@ import { useAuth } from '../context/AuthContext';
 
 const Drawer = createDrawerNavigator();
 const GradientBackground = styled(LinearGradient);
+
+const Stack = createNativeStackNavigator();
 
 const CustomDrawerContent = ({ navigation }) => {
     const { logOut } = useAuth();
@@ -97,9 +100,36 @@ const CustomHeader = ({ screen, navigation }) => {
     )
 }
 
+function NewsStack({ navigation }) {
+    return (
+        <Stack.Navigator initialRouteName="News">
+            <Stack.Screen
+                name="News"
+                component={NewsScreen}
+                options={{
+                    headerTitle: () => <CustomHeader navigation={navigation} screen={{ icon: "house", label: "Novedades" }} />
+                }}
+            />
+            <Stack.Screen
+                name="NewDetail"
+                component={NewsDetailScreen}
+                options={{
+                    // headerShown: false,
+                    header: () =>
+                        <View className={`flex-grow flex-row justify-center items-center`}>
+                            <View className={`w-full bg-[${Colors.primary}] h-14 justify-center pl-5`} >
+                                <Icon color={"white"} name="arrow-left" size={30} onPress={() => navigation.navigate("News")} />
+                            </View>
+                        </View>
+                }}
+            />
+        </Stack.Navigator>
+    );
+}
+
 export const MainNavigation = () => {
     return (
-        <Drawer.Navigator initialRouteName='News' drawerContent={(props) => <CustomDrawerContent {...props} />}>
+        <Drawer.Navigator initialRouteName='Welcome' drawerContent={(props) => <CustomDrawerContent {...props} />}>
 
             {Screens.map((screen, index) => (
                 <Drawer.Screen
@@ -122,7 +152,9 @@ export const MainNavigation = () => {
                 />
             ))}
 
-            <Drawer.Screen
+            <Drawer.Screen name="NewsStack" component={NewsStack} />
+
+            {/* <Drawer.Screen
                 key={999}
                 name={"NewDetail"}
                 component={NewsDetailScreen}
@@ -144,7 +176,7 @@ export const MainNavigation = () => {
                             </View>,
                     }
                 }
-            />
+            /> */}
         </Drawer.Navigator >
     );
 }
